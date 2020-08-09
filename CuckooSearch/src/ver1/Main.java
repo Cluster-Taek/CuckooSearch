@@ -7,7 +7,7 @@ public class Main {
 	static int population = 15;
 	static Function nest[] = new Function[population];
 	static int maxGeneration = 50000000;
-	static double range = 5;
+	static double range = 512;
 	static double discoverPro = 0.25;
 	static double alpha = 1;
 	static int printGeneration = 10000;

@@ -9,7 +9,7 @@ public class Function implements Comparable<Function>{
 	public Function(double x, double y) {
 		this.x = x;
 		this.y = y;
-		this.fitness = easom(x, y);
+		this.fitness = himmelblau(x, y);
 	}
 	
 	public double getX() {
@@ -72,6 +72,19 @@ public class Function implements Comparable<Function>{
 	public double easom(double x, double y) {
 		double result = - (Math.cos(x) * Math.cos(y) 
 				* exp(-(Math.pow(x - Math.PI, 2) + Math.pow(x - Math.PI, 2))));
+				
+		return result;
+	}
+	
+	public double eggholder(double x, double y) {
+		double result = - (y + 47) * Math.sin(Math.sqrt(Math.abs((x / 2) + y + 47))) 
+				- (x * Math.sin(Math.sqrt(Math.abs(x - y + 47))));
+				
+		return result;
+	}
+	
+	public double himmelblau(double x, double y) {
+		double result = Math.pow((x * x) + y - 11, 2) + Math.pow(x + (y * y) - 7, 2);
 				
 		return result;
 	}
