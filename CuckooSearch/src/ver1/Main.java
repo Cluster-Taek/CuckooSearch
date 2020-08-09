@@ -10,7 +10,7 @@ public class Main {
 	static double range = 5;
 	static double discoverPro = 0.25;
 	static double alpha = 1;
-	static int printGeneration = 1000000;
+	static int printGeneration = 10000;
 	static int cutGeneration = 100000000;
 	
 	static double randomSet(double range) {
@@ -35,9 +35,9 @@ public class Main {
 	
 	static void laying(int generation) {
 		int index = (int)Math.random() * (population - 1) + 1;
-		Function cuckoo = new Function(levy(nest[index].getX1(),generation), levy(nest[index].getX2(),generation));
+		Function cuckoo = new Function(levy(nest[index].getX(),generation), levy(nest[index].getY(),generation));
 		if(nest[index].getFitness() > cuckoo.getFitness()) {
-			nest[index] = new Function(cuckoo.getX1(), cuckoo.getX2());
+			nest[index] = new Function(cuckoo.getX(), cuckoo.getY());
 		}
 		discover(index);
 	}
@@ -77,7 +77,7 @@ public class Main {
 	}
 	
 	static void print(Function f) {
-		System.out.println("x1 : " + String.format("%.10f", f.getX1()) + " x2 : " + String.format("%.10f", f.getX2()) + " Fitness : " + String.format("%.10f", f.getFitness()));
+		System.out.println("X : " + String.format("%.10f", f.getX()) + " Y : " + String.format("%.10f", f.getY()) + " Fitness : " + String.format("%.10f", f.getFitness()));
 	}
 	
 	public static void main(String[] args) {
