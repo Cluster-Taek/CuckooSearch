@@ -2,30 +2,30 @@ package ver1;
 
 public class Function implements Comparable<Function>{
 	
-	private double x1;
-	private double x2;
+	private double x;
+	private double y;
 	private double fitness;
 	
-	public Function(double x1, double x2) {
-		this.x1 = x1;
-		this.x2 = x2;
-		this.fitness = ackely(x1, x2);
+	public Function(double x, double y) {
+		this.x = x;
+		this.y = y;
+		this.fitness = easom(x, y);
 	}
 	
-	public double getX1() {
-		return x1;
+	public double getX() {
+		return x;
 	}
 
-	public void setX1(double x1) {
-		this.x1 = x1;
+	public void setX(double x) {
+		this.x = x;
 	}
 
-	public double getX2() {
-		return x2;
+	public double getY() {
+		return y;
 	}
 
-	public void setX2(double x2) {
-		this.x2 = x2;
+	public void setY(double y) {
+		this.y = y;
 	}
 
 	public double getFitness() {
@@ -52,20 +52,29 @@ public class Function implements Comparable<Function>{
 		return result;
 	}
 	
-	public double rastrigin(double x1, double x2) {
-		double result = -20 * exp(-0.2 * Math.sqrt(0.5 * (Math.pow(x1, 2) + Math.pow(x2, 2)))) 
-				- exp(0.5 * ((Math.cos(2 * x1 * Math.PI) + (Math.cos(2 * x2 * Math.PI))))) 
+	
+	
+	public double ackely(double x, double y) {
+		double result = -20 * exp(-0.2 * Math.sqrt(0.5 * (Math.pow(x, 2) + Math.pow(y, 2)))) 
+				- exp(0.5 * ((Math.cos(2 * x * Math.PI) + (Math.cos(2 * y * Math.PI))))) 
 				+ Math.E + 20;
 		
 		return result;
 	}
 	
-	public double ackely(double x1, double x2) {
-		double result = -20 * exp(-0.2 * Math.sqrt(0.5 * (Math.pow(x1, 2) + Math.pow(x2, 2)))) 
-				- exp(0.5 * ((Math.cos(2 * x1 * Math.PI) + (Math.cos(2 * x2 * Math.PI))))) 
-				+ Math.E + 20;
+	public double beale(double x, double y) {
+		double result = Math.pow((1.5 - x + (x * y)), 2) + Math.pow((2.25 - x + (x * y * y)), 2)
+				+ Math.pow(2.625 - x + (x * y * y * y), 2);
 		
 		return result;
 	}
+	
+	public double easom(double x, double y) {
+		double result = - (Math.cos(x) * Math.cos(y) 
+				* exp(-(Math.pow(x - Math.PI, 2) + Math.pow(x - Math.PI, 2))));
+				
+		return result;
+	}
+	
 	
 }
