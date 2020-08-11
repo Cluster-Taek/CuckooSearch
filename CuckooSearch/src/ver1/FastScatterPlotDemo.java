@@ -10,10 +10,10 @@ import org.jfree.ui.RefineryUtilities;
 
 public class FastScatterPlotDemo extends ApplicationFrame {
 
-    private static final int COUNT = 500;
+    private static final int COUNT = 15;
 
     
-    private float[][] data = new float[2][COUNT];
+    private float[][] data = new float[COUNT][2];
 
     public FastScatterPlotDemo(final String title) {
 
@@ -40,11 +40,14 @@ public class FastScatterPlotDemo extends ApplicationFrame {
     }
 
     private void populateData() {
-
+    	Main main = new Main();
+		main.initialized();
+		main.generation();
+		main.dataView();
         for (int i = 0; i < this.data[0].length; i++) {
             final float x = (float) i;
-            this.data[0][i] = x;
-            this.data[1][i] = (float) Math.random() * COUNT;
+            this.data[i][0] = (float) main.dataView()[i][0];
+            this.data[i][1] = (float) main.dataView()[i][1];
         }
 
     }

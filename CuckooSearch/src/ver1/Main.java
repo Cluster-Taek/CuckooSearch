@@ -4,26 +4,28 @@ import java.util.Arrays;
 
 public class Main {
 	
-	static int population = 15;
-	static Function nest[] = new Function[population];
-	static int maxGeneration = 50000000;
-	static double range = 512;
-	static double discoverPro = 0.25;
-	static double alpha = 1;
-	static int printGeneration = 10000;
-	static int cutGeneration = 100000000;
+	int population = 15;
+	Function nest[] = new Function[population];
+	int maxGeneration = 50000000;
+	double range = 5;
+	double discoverPro = 0.25;
+	double alpha = 1;
+	int printGeneration = 1000000000;
+	int cutGeneration = 10000000;
 	
-	static double randomSet(double range) {
+	int generation = 0;
+	
+	double randomSet(double range) {
 		return (Math.random() * range * 2) - range;
 	}
 	
-	static void initialized() {
+	void initialized() {
 		for(int i = 0; i < population; i++) {
 			nest[i] = new Function(randomSet(range), randomSet(range));
 		}
 	}
 	
-	static double levy(double current,int generation) {
+	double levy(double current,int generation) {
 		double lamda;
 		do{
 			lamda = (Math.random() * 2.1) + 1;
@@ -33,7 +35,7 @@ public class Main {
 		return next;
 	}
 	
-	static void laying(int generation) {
+	void laying(int generation) {
 		int index = (int)Math.random() * (population - 1) + 1;
 		Function cuckoo = new Function(levy(nest[index].getX(),generation), levy(nest[index].getY(),generation));
 		if(nest[index].getFitness() > cuckoo.getFitness()) {
@@ -42,27 +44,35 @@ public class Main {
 		discover(index);
 	}
 	
-	static void discover(int i) {
+	void discover(int i) {
 		if(Math.random() > discoverPro) {
 			nest[i] = new Function(randomSet(range), randomSet(range));
 		}
 	}
 	
-	static void sorting(Function nest[]) {
+	void sorting(Function nest[]) {
 		Arrays.sort(nest);
 	}
 	
-	static void generation() {
-		int generation = 0;
+	void generation() {
+		generation = 0;
 		int history = 0;
 		double temp = 20;
 		while(generation < maxGeneration && history < cutGeneration) {
 			laying(generation);
 			sorting(nest);
 			if(generation % printGeneration == 0) {
-				System.out.println("Generation " + generation);
-				print(nest[0]);
+				dataView();
+				for (int i = 0; i < dataView().length; i++) {
+					for (int j = 0; j < dataView()[0].length; j++) {
+						System.out.print(dataView()[i][j] + "\t");
+					}
+					System.out.println();
+				}
+				//System.out.println("Generation " + generation);
+				//print(nest[0]);
 			}
+			
 			generation++;
 			
 			if(temp == nest[0].getFitness()) {
@@ -76,15 +86,29 @@ public class Main {
 		}
 	}
 	
-	static void print(Function f) {
+	void print(Function f) {
 		System.out.println("X : " + String.format("%.10f", f.getX()) + " Y : " + String.format("%.10f", f.getY()) + " Fitness : " + String.format("%.10f", f.getFitness()));
+	}
+	
+	double[][] dataView() {
+		double[][] a = new double [population][2];
+		for (int i = 0; i < a.length; i++) {
+			a[i][0] = nest[i].getX();
+			a[i][1] = nest[i].getY();
+		}
+		
+		return a;
 	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		initialized();
-		generation();
-		System.out.println("Satisfied Fitness : " + String.format("%.10f", nest[0].getFitness()));
+		for(int i = 0; i < 20; i++) {
+			Main main = new Main();
+			main.initialized();
+			main.generation();
+			System.out.println("Last Generation : " + main.generation);
+			System.out.println("Satisfied Fitness : " + String.format("%.10f", main.nest[0].getFitness()));
+		}
 		
 	}
 

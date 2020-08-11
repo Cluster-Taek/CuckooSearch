@@ -9,7 +9,7 @@ public class Function implements Comparable<Function>{
 	public Function(double x, double y) {
 		this.x = x;
 		this.y = y;
-		this.fitness = himmelblau(x, y);
+		this.fitness = ackely(x, y);
 	}
 	
 	public double getX() {
